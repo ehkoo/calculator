@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import Button from './Button.jsx'
 import * as Engine from './Engine'
 
@@ -37,15 +38,31 @@ class App extends Component {
     this.setState({ currentResult, currentSteps, isGameEnded, isWon })
   }
 
-  getMessage = () => {
-    if (!this.state.isGameEnded)
-      return (
-        <p className="mb-0">
-          <strong>Instruction:</strong> Try to reach the goal within allowed moves.
-        </p>
-      )
+  doMakeNewGame = e => {
+    e.preventDefault()
+    this.game = Engine.newGame()
+    this.initState()
+  }
 
-    return <strong>{this.state.isWon ? 'You won' : 'You lost. Press CLR to try again.'}</strong>
+  renderMessage = () => {
+    const classes = classnames('mb-0 alert', {
+      'alert-info': !this.state.isGameEnded,
+      'alert-success': this.state.isGameEnded && this.state.isWon,
+      'alert-danger': this.state.isGameEnded && !this.state.isWon
+    })
+    const message = !this.state.isGameEnded ? (
+      <span>
+        <strong>Instruction:</strong> Try to reach the goal within allowed moves.
+      </span>
+    ) : (
+      <strong>{this.state.isWon ? 'You won. Press NEW for a new game.' : 'You lost. Press CLR to try again.'}</strong>
+    )
+
+    return (
+      <div className={classes}>
+        <p className="mb-0">{message}</p>
+      </div>
+    )
   }
 
   render() {
@@ -76,16 +93,20 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="alert alert-info">{this.getMessage()}</div>
+        {this.renderMessage()}
 
-        <div className="row f-iceberg">
+        <div className="mt-1 row f-iceberg">
           {operators.map(op => (
             <div className="col-6 col-md-3" key={op.label}>
               <Button onClick={this.doClickButton(op)}>{op.label}</Button>
             </div>
           ))}
           <div className="col-6 col-md-3">
-            <Button onClick={this.doReset}>CLR</Button>
+            {this.state.isGameEnded ? (
+              <Button onClick={this.doMakeNewGame}>NEW</Button>
+            ) : (
+              <Button onClick={this.doReset}>CLR</Button>
+            )}
           </div>
         </div>
       </div>
