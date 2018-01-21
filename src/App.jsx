@@ -102,7 +102,7 @@ class App extends Component {
             </div>
           ))}
           <div className="col-6 col-md-3">
-            {this.state.isGameEnded ? (
+            {this.state.isGameEnded && this.state.isWon ? (
               <Button onClick={this.doMakeNewGame}>NEW</Button>
             ) : (
               <Button onClick={this.doReset}>CLR</Button>
