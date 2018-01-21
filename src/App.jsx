@@ -52,7 +52,7 @@ class App extends Component {
     })
     const message = !this.state.isGameEnded ? (
       <span>
-        <strong>Instruction:</strong> With initial result, try to reach the goal within allowed moves.
+        <strong>Instruction:</strong> With initial result, try to reach the goal using exactly allowed moves.
       </span>
     ) : (
       <strong>{this.state.isWon ? 'You won. Press NEW for a new game.' : 'You lost. Press CLR to try again.'}</strong>
