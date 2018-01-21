@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   renderMessage = () => {
-    const classes = classnames('mb-0 alert', {
+    const classes = classnames('mt-2 mb-0 alert', {
       'alert-info': !this.state.isGameEnded,
       'alert-success': this.state.isGameEnded && this.state.isWon,
       'alert-danger': this.state.isGameEnded && !this.state.isWon
@@ -69,27 +69,27 @@ class App extends Component {
     const { operators, goal } = this.game
 
     return (
-      <div className="container mt-2">
+      <div className="container mt-2" style={{ maxWidth: '48rem' }}>
         <div className="d-flex justify-content-between">
           <div className="px-2 text-center">
             <h4>Goal</h4>
-            <h2 className="display-4">
+            <div className="display-4">
               <span className="badge badge-light">{goal}</span>
-            </h2>
+            </div>
           </div>
 
           <div className="px-2 text-center">
             <h4>Moves</h4>
-            <h2 className="display-4">
+            <div className="display-4">
               <span className="badge badge-light">{this.state.currentSteps}</span>
-            </h2>
+            </div>
           </div>
 
           <div className="px-2 text-center">
             <h4>Result</h4>
-            <h2 className="display-4">
+            <div className="display-4">
               <span className="badge badge-primary">{this.state.currentResult}</span>
-            </h2>
+            </div>
           </div>
         </div>
 
@@ -101,11 +101,15 @@ class App extends Component {
               <Button onClick={this.doClickButton(op)}>{op.label}</Button>
             </div>
           ))}
-          <div className="col-6 col-md-3">
+          <div className="col-12">
             {this.state.isGameEnded && this.state.isWon ? (
-              <Button onClick={this.doMakeNewGame}>NEW</Button>
+              <Button className="btn btn-dark btn-lg btn-block" onClick={this.doMakeNewGame}>
+                NEW
+              </Button>
             ) : (
-              <Button onClick={this.doReset}>CLR</Button>
+              <Button className="btn btn-dark btn-lg btn-block" onClick={this.doReset}>
+                CLR
+              </Button>
             )}
           </div>
         </div>
