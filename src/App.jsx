@@ -52,7 +52,7 @@ class App extends Component {
     })
     const message = !this.state.isGameEnded ? (
       <span>
-        <strong>Instruction:</strong> Try to reach the goal within allowed moves.
+        <strong>Instruction:</strong> With initial result, try to reach the goal within allowed moves.
       </span>
     ) : (
       <strong>{this.state.isWon ? 'You won. Press NEW for a new game.' : 'You lost. Press CLR to try again.'}</strong>
@@ -70,23 +70,23 @@ class App extends Component {
 
     return (
       <div className="container mt-2">
-        <div className="d-flex justify-content-between f-iceberg">
+        <div className="d-flex justify-content-between">
           <div className="px-2 text-center">
-            <h3>Goal</h3>
+            <h4>Goal</h4>
             <h2 className="display-4">
               <span className="badge badge-light">{goal}</span>
             </h2>
           </div>
 
           <div className="px-2 text-center">
-            <h3>Moves</h3>
+            <h4>Moves</h4>
             <h2 className="display-4">
               <span className="badge badge-light">{this.state.currentSteps}</span>
             </h2>
           </div>
 
           <div className="px-2 text-center">
-            <h3>Result</h3>
+            <h4>Result</h4>
             <h2 className="display-4">
               <span className="badge badge-primary">{this.state.currentResult}</span>
             </h2>
@@ -95,7 +95,7 @@ class App extends Component {
 
         {this.renderMessage()}
 
-        <div className="mt-1 row f-iceberg">
+        <div className="mt-2 row">
           {operators.map(op => (
             <div className="col-6 col-md-3" key={op.label}>
               <Button onClick={this.doClickButton(op)}>{op.label}</Button>
