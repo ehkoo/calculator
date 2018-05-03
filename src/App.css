@@ -1,0 +1,90 @@
+@import '~minireset.css';
+
+body {
+  background-color: #f7f7f7;
+}
+
+.container {
+  max-width: 24rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem;
+  font-family: sans-serif;
+}
+
+.help-text {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin: 2.5rem auto;
+}
+
+.help-text__value {
+  font-size: 3rem;
+  color: #2185d0;
+  font-weight: 600;
+}
+
+.help-text__label {
+  text-transform: uppercase;
+  color: #aaa;
+  letter-spacing: 0.2rem;
+}
+
+.display {
+  background-color: #555c73;
+  color: #fff;
+  padding: 1rem;
+  font-weight: 600;
+  text-align: right;
+  margin: 0.5em auto;
+  border-radius: 0.3rem;
+  font-size: 2rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 6rem);
+  grid-gap: 1rem;
+}
+
+.button {
+  font-size: 2rem;
+  display: inline-block;
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 -0.25em 0 rgba(0, 0, 0, 0.25),
+    0 0.25em 0.25em rgba(0, 0, 0, 0.05);
+  color: #fff;
+  background-color: #e65d4f;
+  cursor: pointer;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  position: relative;
+  text-decoration: none;
+  text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.25);
+  vertical-align: middle;
+}
+
+.button--clear {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.button--help {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.button--secondary {
+  background-color: #00b5ad;
+}
+
+.help-icon {
+  max-width: 3rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
