@@ -1,19 +1,18 @@
 import React from 'react'
 import './App.css'
-import { add, sub, div } from './operators'
+import generate from './generate'
 
 const WIN = 'WIN'
 const LOSE = 'LOSE'
 
 class App extends React.Component {
-  state = {
-    goal: 12,
-    moves: 3,
-    initResult: 3,
-    currentResult: 3,
-    operators: [add(4), sub(4), div(4)],
-    gameEnd: false,
-    gameResult: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      ...generate(),
+      gameEnd: false,
+      gameResult: null
+    }
   }
 
   doClickButton = op => e => {
@@ -49,8 +48,8 @@ class App extends React.Component {
         <div className="display">{this.state.currentResult}</div>
         {this.state.gameEnd ? this.state.gameResult : null}
         <div className="buttons">
-          {this.state.operators.map(op => (
-            <button key={op.label} className="button" onClick={this.doClickButton(op)}>
+          {this.state.operators.map((op, index) => (
+            <button key={index} className="button" onClick={this.doClickButton(op)}>
               {op.label}
             </button>
           ))}
