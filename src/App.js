@@ -1,26 +1,60 @@
 import React from 'react'
 import './App.css'
+import { add, sub, div } from './operators'
+
+const WIN = 'WIN'
+const LOSE = 'LOSE'
 
 class App extends React.Component {
+  state = {
+    goal: 12,
+    moves: 3,
+    initResult: 3,
+    currentResult: 3,
+    operators: [add(4), sub(4), div(4)],
+    gameEnd: false,
+    gameResult: null
+  }
+
+  doClickButton = op => e => {
+    e.preventDefault()
+    if (this.state.gameEnd) return
+
+    this.setState(prevState => {
+      // Calculate current result
+      const currentResult = op.func(prevState.currentResult)
+      // Reduce remaining moves
+      const moves = prevState.moves - 1
+
+      const gameEnd = moves === 0
+      const gameResult = currentResult === prevState.goal ? WIN : LOSE
+
+      return { currentResult, moves, gameEnd, gameResult }
+    })
+  }
+
   render() {
     return (
       <div className="container">
         <div className="help-text">
           <div>
-            <h1 className="help-text__value">19</h1>
-            <div class="help-text__label">goal</div>
+            <h1 className="help-text__value">{this.state.goal}</h1>
+            <div className="help-text__label">goal</div>
           </div>
           <div>
-            <h1 className="help-text__value">5</h1>
-            <div class="help-text__label">moves</div>
+            <h1 className="help-text__value">{this.state.moves}</h1>
+            <div className="help-text__label">moves</div>
           </div>
         </div>
-        <div className="display">123</div>
+        <div className="display">{this.state.currentResult}</div>
+        {this.state.gameEnd ? this.state.gameResult : null}
         <div className="buttons">
-          <button className="button">+3</button>
-          <button className="button">/3</button>
-          <button className="button">-9</button>
-          <button className="button">-9</button>
+          {this.state.operators.map(op => (
+            <button key={op.label} className="button" onClick={this.doClickButton(op)}>
+              {op.label}
+            </button>
+          ))}
+
           <button className="button button--secondary button--clear">CLR</button>
           <button className="button button--secondary button--help">
             <i className="help-icon">
