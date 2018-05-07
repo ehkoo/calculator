@@ -8,11 +8,19 @@ const LOSE = 'LOSE'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    const initState = {
       ...generate(),
       gameEnd: false,
       gameResult: null
     }
+
+    this.initState = initState
+    this.state = { ...initState }
+  }
+
+  doReset = e => {
+    e.preventDefault()
+    this.setState(this.initState)
   }
 
   doClickButton = op => e => {
@@ -54,7 +62,9 @@ class App extends React.Component {
             </button>
           ))}
 
-          <button className="button button--secondary button--clear">CLR</button>
+          <button className="button button--secondary button--clear" onClick={this.doReset}>
+            CLR
+          </button>
           <button className="button button--secondary button--help">
             <i className="help-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
