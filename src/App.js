@@ -1,9 +1,12 @@
 import React from 'react'
+import ReactModal from 'react-modal'
 import './App.css'
 import generate from './generate'
 
 const WIN = 'WIN'
 const LOSE = 'LOSE'
+
+ReactModal.setAppElement('#root')
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +14,8 @@ class App extends React.Component {
     const initState = {
       ...generate(),
       gameEnd: false,
-      gameResult: null
+      gameResult: null,
+      showModal: false
     }
 
     this.initState = initState
@@ -35,14 +39,27 @@ class App extends React.Component {
 
       const gameEnd = moves === 0
       const gameResult = currentResult === prevState.goal ? WIN : LOSE
+      const showModal = gameEnd
 
-      return { currentResult, moves, gameEnd, gameResult }
+      return { currentResult, moves, gameEnd, gameResult, showModal }
     })
+  }
+
+  doCloseModal = e => {
+    e.preventDefault()
+    if (this.state.gameEnd && this.state.gameResult === LOSE) this.doReset(e)
+    this.setState({ showModal: false })
   }
 
   render() {
     return (
       <div className="container">
+        <ReactModal isOpen={this.state.showModal} className="modal" overlayClassName="modal-overlay">
+          <h3 className="result">{this.state.gameEnd ? this.state.gameResult : null}</h3>
+          <button className="button button--modal" onClick={this.doCloseModal}>
+            Close
+          </button>
+        </ReactModal>
         <div className="help-text">
           <div>
             <h1 className="help-text__value">{this.state.goal}</h1>
@@ -54,7 +71,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className="display">{this.state.currentResult}</div>
-        {this.state.gameEnd ? this.state.gameResult : null}
+
         <div className="buttons">
           {this.state.operators.map((op, index) => (
             <button key={index} className="button" onClick={this.doClickButton(op)}>
